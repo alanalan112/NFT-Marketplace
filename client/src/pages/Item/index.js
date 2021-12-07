@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Web3 from "web3";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Web3 from 'web3';
 
-import { selectedNft, removeSelectedNft } from "../../redux/actions/nftActions";
+import { selectedNft, removeSelectedNft } from '../../redux/actions/nftActions';
 
-import { useStyles } from "./styles.js";
+import { useStyles } from './styles.js';
 
 const Item = () => {
   const classes = useStyles();
@@ -39,7 +39,7 @@ const Item = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (nftId && nftId !== "" && nftItem) dispatch(selectedNft(nftItem[0]));
+    if (nftId && nftId !== '' && nftItem) dispatch(selectedNft(nftItem[0]));
     return () => {
       dispatch(removeSelectedNft());
     };
@@ -57,8 +57,8 @@ const Item = () => {
         .send({ gas: 210000, from: account });
       console.log(receipt);
     } catch (error) {
-      console.error("Error, puting for sale: ", error);
-      alert("Error while puting for sale!");
+      console.error('Error, puting for sale: ', error);
+      alert('Error while puting for sale!');
     }
   }
 
@@ -70,8 +70,8 @@ const Item = () => {
       console.log(receipt);
       const id = receipt.events.itemSold.id; ///saleId
     } catch (error) {
-      console.error("Error, buying: ", error);
-      alert("Error while buying!");
+      console.error('Error, buying: ', error);
+      alert('Error while buying!');
     }
   }
 
@@ -87,13 +87,9 @@ const Item = () => {
             </Link>
           </header>
           <section>
-            <Grid container 
-              spacing={0} 
-              alignItems="center"
-              justify="center"
-            >
+            <Grid container spacing={0} alignItems="center" justify="center">
               <Grid item md={7} sm={7} xs={12}>
-                <figure> 
+                <figure>
                   <img className="ui fluid image" src={image} />
                 </figure>
               </Grid>
@@ -108,7 +104,7 @@ const Item = () => {
                     fullWidth
                     disabled
                     defaultValue={
-                      creator.slice(0, 7) + "..." + creator.slice(-4)
+                      creator.slice(0, 7) + '...' + creator.slice(-4)
                     }
                   />
                   <TextField
@@ -118,7 +114,7 @@ const Item = () => {
                     disabled
                     fullWidth
                     margin="dense"
-                    defaultValue={owner.slice(0, 7) + "..." + owner.slice(-4)}
+                    defaultValue={owner.slice(0, 7) + '...' + owner.slice(-4)}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -137,14 +133,14 @@ const Item = () => {
                     name="price"
                     variant="filled"
                     margin="dense"
-                    defaultValue={Web3.utils.fromWei(String(price), "ether")}
+                    defaultValue={Web3.utils.fromWei(String(price), 'ether')}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">ETH</InputAdornment>
                       ),
                     }}
                     fullWidth
-                    disabled
+                    // disabled
                   />
                   {owner === account && !isForSale && (
                     <Button
