@@ -37,6 +37,10 @@ const Item = () => {
     isSold,
   } = nft;
   const dispatch = useDispatch();
+  const [sellPrice, setSellPrice] = useState(price);
+  // const printPrice = () => {
+  //   console.log(sellPrice);
+  // };
 
   useEffect(() => {
     if (nftId && nftId !== '' && nftItem) dispatch(selectedNft(nftItem[0]));
@@ -45,6 +49,14 @@ const Item = () => {
     };
   }, [nftId]);
 
+  const handlePriceChange = (event) => {
+    let { value } = event.target;
+    // if(name === 'a12345'){
+    //   value = event.target.files[0];
+    // }
+    setSellPrice(value);
+    console.log(sellPrice);
+  };
   async function putForSale(id, price) {
     try {
       // const itemIdex = getItemIndexBuyTokenId(id);
@@ -139,6 +151,10 @@ const Item = () => {
                         <InputAdornment position="start">ETH</InputAdornment>
                       ),
                     }}
+                    onChange={handlePriceChange}
+                    // onChange={(e, newValue) =>
+                    //   this.setState({ name: newValue })
+                    // }
                     fullWidth
                     // disabled
                   />
@@ -146,7 +162,16 @@ const Item = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => putForSale(tokenId, 200)}
+                      onClick={
+                        () =>
+                          // console.log(price)
+                          // printPrice()
+                          putForSale(
+                            tokenId,
+                            Web3.utils.toWei(String(sellPrice), 'ether')
+                          )
+                        // putForSale(tokenId, sellPrice)
+                      }
                     >
                       Sell
                     </Button>
@@ -155,7 +180,12 @@ const Item = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => buy(saleId, 200)}
+                      onClick={() =>
+                        // console.log(
+                        //   Web3.utils.fromWei(String(price), 'ether')
+                        // )
+                        buy(saleId, price)
+                      }
                     >
                       Buy
                     </Button>
